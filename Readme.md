@@ -75,17 +75,52 @@ car_rental_system/
 Make sure you have Python 3.9+ installed.
 
 ### Installation
-1. Clone the repository
+1. Open CMD
 ```bash
-git clone https://github.com/Usman-Rasheed-Siddiqui/Car-Rental-System.git
+WIN + R
+cmd
 ```
 
-2. Extract the .zip file to your desired folder
-
-3. 
+2. Clone the repository
 ```bash
-python main.py
+git clone https://github.com/Usman-Rasheed-Siddiqui/car-rental-system.git
 ```
+
+3. Navigate to the directory
+```bash
+cd car-rental-system
+```
+
+4. Set up virtual environment
+```bash
+python -m venv venv
+source venv/bin/activate  # Linux/macOS
+venv\Scripts\activate    # Windows
+```
+
+5. Configure database
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```
+
+6. Create superuser (for admin access)
+```bash
+python manage.py createsuperuser
+```
+
+7. Run development server
+```bash
+python manage.py runserver
+```
+
+8. Copy this link and paste as URL
+  - For page
+```bash
+http://127.0.0.1:8000/
+```
+  - For Admin (Django Administration)
+http://127.0.0.1:8000/admin
 ---
 
 ## Features
