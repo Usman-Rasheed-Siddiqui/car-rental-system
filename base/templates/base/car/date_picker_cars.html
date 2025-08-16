@@ -1,0 +1,45 @@
+
+{% load static %}
+
+{% block content %}
+
+<style>
+    .date-picker-container {
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    
+    .input-group {
+        flex: 1;
+    }
+
+</style>
+
+<div class="date-picker-container">
+    <form  method="get" action="{% url 'renting' car.id %}">
+        <div class="card text-center" style='width: 250px; height: 250px; margin: 0 auto'>
+            <div class="card-header">
+                Change Date
+            </div>
+
+        <div class="card-body">
+            <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Rental Date</span>
+                <input type="date" id="pickup-date" name="rent_date" value="{{ rent_date|default_if_none:'' }}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+            </div>
+            <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Return Date</span>
+                <input type="date" id="pickup-date" name="return_date" value="{{ return_date|default_if_none:'' }}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+            </div>
+        <div class="find-button" style = "justify-content: center; margin-top:20px;">
+            <button type="submit" class="btn btn-dark mb-3">Change Date</button>
+        </div>
+    </form>
+    <div>
+        
+    </div>
+</div>
+
+{% endblock %}

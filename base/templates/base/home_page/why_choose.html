@@ -1,0 +1,54 @@
+{% load static %}
+<style>
+    .figure-container {
+        margin-top: 100px;
+    }
+    .figure-text {
+        display: flex;
+    }
+
+</style>
+
+<div class='figure-container'>
+    <div class='text' style = "margin-left: 100px;">
+        <h1 class="fw-semibold" style="font-family: Montserrat, sans-serif;">Why Choose Us?</h1> 
+    </div>
+    <hr style = 'width:90%; margin:auto;'>
+    <div class="figure-text">
+        <figure class="figure" style="margin-top: 20px;">
+            <img src="{% static "images/key_giving.jpg" %}" class="figure-img img-fluid rounded" style ="margin-left: 100px;" alt="key giving">
+            <figcaption class="figure-caption"></figcaption>
+        </figure>
+        <div class="d-flex" style="height: 400px; margin-top: 20px;">
+            <div class="vr" style="margin-left:20px;"></div>
+        </div>
+        <div class="text" style="margin-top: 150px; margin-left:70px; justify-content: center; align-text: center; max-width: 600px;">
+            <h4 class="fw-semibold" style="font-family: Roboto, sans-serif; font-style: italic;">Reliable Car Rentals, Anytime!</h4> 
+            <p style="margin-top: 20px; font-style: italic; text-align: justify;">
+                At RideNow, we offer clean, fuel-efficient, and well-maintained vehicles at affordable prices. Whether you're exploring the city or need a car for business, we're here to get you on the road with ease.
+            </p>
+        </div>
+    </div>
+
+</div>
+
+<div class='figure-container'>
+
+    <div class="figure-text" style="margin-top:50px;">
+        <div class="text" style="margin-top: 150px; margin-left:100px; justify-content: center; align-text: center; max-width: 600px;">
+            <h4 class="fw-semibold" style="font-family: Roboto, sans-serif; font-style: italic;">Wide Range of Vehicles</h4> 
+            <p style="margin-top: 20px; font-style: italic; text-align: justify; margin-right: 30px;">
+                Whether you're heading to an important meeting, planning a weekend getaway, or simply need a dependable ride for your daily commute, our diverse fleet has you covered.
+            </p>
+        </div>
+        <div class="d-flex" style="height: 420px; margin-top: 20px;">
+            <div class="vr" style="margin-left:20px; margin-right:20px;"></div>
+        </div>
+        <figure class="figure" style="margin-top: 20px; max-width: 600px;">
+            <img src="{% static "images/cars_parked.jpg" %}" class="figure-img img-fluid rounded" alt="cars parked">
+            <figcaption class="figure-caption"></figcaption>
+        </figure>
+
+    </div>
+
+</div>

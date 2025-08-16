@@ -1,0 +1,56 @@
+
+{% load static %}
+
+{% block content %}
+
+<style>
+    .date-picker-container {
+        justify-content: center;
+        align-items: center;
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+    
+    .input-group {
+        flex: 1;
+    }
+</style>
+
+<div class="date-picker-container">
+    <form  method="get" action="{% url 'find_car' %}">
+        <div class="card text-center" style='width: 400px; margin: 0 auto'>
+            <div class="card-header">
+                Rent Now?
+            </div>
+            {% csrf_token %}
+
+        <div class="card-body">
+            <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Rental Date</span>
+                <input type="date" id="pickup-date" name="rent_date" value="{{ rent_date|default_if_none:'' }}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+            </div>
+            <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Return Date</span>
+                <input type="date" id="pickup-date" name="return_date" value="{{ return_date|default_if_none:'' }}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+            </div>
+
+        <div class="select">
+            <select class="form-select" name="car_type" aria-label="Default select example">
+                <option selected>Car Type</option>
+                <option value="economy">Economy</option>
+                <option value="luxury">Luxury</option>
+                <option value="suv">SUV</option>
+                <option value="pickup">Pick Up</option>
+                <option value="other">Others</option>
+            </select>    
+        </div>
+        <div class="find-button" style = "justify-content: center; margin-top:20px;">
+            <button type="submit" class="btn btn-primary mb-3">Find Car</button>
+        </div>
+    </form>
+    <div>
+        
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,72 @@
+
+{% block content %}
+
+<style>
+
+    .scrollspy-nav .nav-pills .nav-link {
+        color: black;
+    }
+
+    .scrollspy-nav .nav-pills .nav-link.active {
+        color: white !important; 
+        background-color: black !important;
+        border: none;
+    }
+    .scrollspy-nav {
+        position:sticky; 
+        top:0; 
+        z-index:1000;
+    }
+
+</style>
+
+
+<div class="scrollspy container">
+
+    <div class="scrollspy-nav">
+        <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3" style="background-color:#f8f9fa;">
+
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a class="nav-link" href="#scrollspyHeading1">Economy</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#scrollspyHeading2">SUVs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#scrollspyHeading3">Luxury</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#scrollspyHeading4">Pick Ups</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div data-bs-spy="scroll"
+        data-bs-target="#navbar-example2"
+        data-bs-root-margin="0px 0px -40%"
+        data-bs-smooth-scroll="true"
+        class="scrollspy-example bg-body-tertiary p-3 rounded-2"
+        tabindex="0">
+        <h4 id="scrollspyHeading1">Economy</h4>
+        <hr>
+        <div class="economy_cars">
+            {% include 'base/admin_page/economy_admin.html' %}
+        </div>
+
+        <h4 id="scrollspyHeading2">SUVs</h4>
+        <p>...</p>
+
+        <h4 id="scrollspyHeading3">Luxury</h4>
+        <p>...</p>
+
+        <h4 id="scrollspyHeading4">Pick Ups</h4>
+        <p>...</p>
+    </div>
+
+
+
+</div>
+
+{% endblock %}

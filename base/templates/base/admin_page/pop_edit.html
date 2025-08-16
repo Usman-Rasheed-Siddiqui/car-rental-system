@@ -1,0 +1,82 @@
+
+{% block content %}
+
+<style>
+    .form-group {
+        margin-top: 10px;
+    }
+</style>
+
+<div class="edit-centre justify-content">
+    
+    <div class="form-row">
+        <div class="form-group">
+            <label class="form-label">Brand</label>
+            <div class="input-group has-validation">
+                <input type="text" name = "brand" value="{{ car.brand }}" class="form-control" id="id_brand" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Model</label>
+            <div class="input-group has-validation">
+                <input type="text" name= "model" value="{{ car.model }}" class="form-control" id="id_model" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Description</label>
+            <div class="input-group has-validation">
+                <input type="text" name= "description" value="{{ car.description|default_if_none:"" }}" class="form-control" id="id_description">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Seats</label>
+            <div class="input-group has-validation">
+                <input type="number" name= "seats" value="{{ car.seats }}" class="form-control" id="id_seats" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Fuel</label>
+            <div class="input-group has-validation">
+                <input type="text" name= "fuel" value="{{ car.fuel }}" class="form-control" id="id_fuel" required>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+
+        <div class="form-group">
+            <label class="form-label">Price Per Day</label>
+            <div class="input-group has-validation">
+                <input type="number" name= "price_per_day" value="{{ car.price_per_day }}" class="form-control" id="id_price_per_day" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">No. Of Cars</label>
+            <div class="input-group has-validation">
+                <input type="number" name= "number_of_cars" value="{{ car.number_of_cars }}" class="form-control" id="id_number_of_cars" required>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">Image</label>
+            <img src="{{ car.image.url }}" class="rounded mx-auto d-block" alt="{{ car.id }}" style="max-height: 200px; max-width: 200px;">
+        </div>
+
+        <div class="form-group">
+            
+            <div class="input-group has-validation">
+                <input class="form-control" type="file" name="image" id="id_image">
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+
+{% endblock %}

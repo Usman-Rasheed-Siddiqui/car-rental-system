@@ -1,0 +1,59 @@
+
+{% extends "main.html" %}
+
+{% load static %}
+
+{% block content %}
+
+
+<div class="carousel-container">
+    {% include 'base/home_page/carousel.html' %}
+</div>
+
+<div class="date-picker-container">
+    {% include 'base/home_page/date_picker.html' %}
+</div>
+
+<div class="why-choose-container">
+    {% include 'base/home_page/why_choose.html' %}
+</div>
+
+<div class="contact-us-container">
+    {% include 'base/home_page/contact_us.html' %}
+</div>
+
+<!--  Toast to show pop up messages -->
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  {# For Django messages #}
+  {% if messages %}
+    {% for message in messages %}
+      <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+          <strong class="me-auto">Note</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+          {{message}}
+        </div>
+      </div>
+
+  {% endfor %}
+  {% endif %}
+
+</div>
+
+
+<!-- Java Script to make the toast work -->
+<script>
+const toastTrigger = document.getElementById('liveToastBtn')
+
+if (toastTrigger) {
+  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+  toastTrigger.addEventListener('click', () => {
+    toastBootstrap.show()
+  })
+}
+</script>
+
+{% endblock %}

@@ -1,0 +1,164 @@
+
+{% load static %}
+
+{% block content %}
+
+<style>
+    .form-row {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 20px;
+        max-width: 700px;
+    }
+    .form-group {
+        flex: 1;
+    }
+    .term-check {
+        margin-top: 20px 0;
+    }
+
+</style>
+
+<div style="margin-left: 30px">
+    <form method="POST" action="{% url 'add_car' %}" enctype="multipart/form-data" style="margin-left: 70px;"> 
+        {% csrf_token %}
+
+        <div class="form-row" style="max-width: 900px;">
+            <div class="form-group">
+                <label for="validationCustomUsername" class="form-label" style="margin-top: 50px;"><h4>Add a Car</h4></label>
+                <div class="image" style="margin-top: 30px;">
+                    <label for="validationCustomUsername" class="form-label">Car Image</label>
+                </div>
+
+                <div class="choose-file" style="margin-top: 10px;">
+                    <div class="mb-3">
+                        <input class="form-control" type="file" name="image" id="id_image" required>
+                        <div class="invalid-feedback">
+                            Please choose an image.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="form-row" style="max-width: 900px;">
+            <div class="form-group">
+                <label class="form-label">Brand</label>
+                <div class="input-group has-validation">
+                    <input type="text" name = "brand" value="{{ form.brand.value|default_if_none:"" }}" class="form-control" id="id_brand" required>
+                    <div class="invalid-feedback">
+                        Please choose a brand.
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Model</label>
+                <div class="input-group has-validation">
+                    <input type="text" name= "model" value="{{ form.model.value|default_if_none:"" }}" class="form-control" id="id_model" required>
+                    <div class="invalid-feedback">
+                        Please choose a model.
+                    </div>                
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row" style="max-width: 900px;">
+            <div class="form-group">
+                <label class="form-label">Description</label>
+                <div class="input-group has-validation">
+                    <input type="text" name= "description" value="{{ form.description.value|default_if_none:"" }}" class="form-control" id="id_description">               
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row" style="max-width: 900px;">
+            <div class="form-group">
+                <label class="form-label">Seats</label>
+                <div class="input-group has-validation">
+                    <input type="number" name= "seats" value="{{ form.seats.value|default_if_none:5|default:5 }}" class="form-control" id="id_seats" required>
+                    <div class="invalid-feedback">
+                        Please choose number of seats.
+                    </div>                
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Fuel</label>
+                <div class="input-group has-validation">
+                    <input type="text" name= "fuel" value="{{ form.fuel.value|default_if_none:'petrol'|default:'petrol' }}" class="form-control" id="id_fuel" required>
+                    <div class="invalid-feedback">
+                        Please choose a fuel.
+                    </div>                
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row" style="max-width: 900px;">
+
+            <div class="form-group">
+                <label class="form-label">Price Per Day</label>
+                <div class="input-group has-validation">
+                    <input type="number" name= "price_per_day" value="{{ form.price_per_day.value|default_if_none:"" }}" class="form-control" id="id_price_per_day" required>
+                    <div class="invalid-feedback">
+                        Please choose price per day.
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">No. Of Cars</label>
+                <div class="input-group has-validation">
+                    <input type="number" name= "number_of_cars" value="{{ form.number_of_cars.value|default_if_none:"" }}" class="form-control" id="id_number_of_cars" required>
+                    <div class="invalid-feedback">
+                        Please choose number of cars.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+
+            <div class="form-group">
+                <div class="select">
+                    <select class="form-select" name="car_type" aria-label="Default select example" style="max-width: 440px;" required>
+                        <option value="" selected disabled>Car Type</option>
+                        <option value="economy" {% if form.car_type.value == "economy" %}selected{% endif %}>Economy</option>
+                        <option value="luxury" {% if form.car_type.value == "luxury" %}selected{% endif %}>Luxury</option>
+                        <option value="suv" {% if form.car_type.value == "suv" %}selected{% endif %}>SUV</option>
+                        <option value="pickup" {% if form.car_type.value == "pickup" %}selected{% endif %}>Pick Up</option>
+                    </select>    
+                    <div class="invalid-feedback">
+                        Please choose a car type.
+                    </div>                
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <div class="form-check">
+                    <input class="form-check-input" name= "available" type="checkbox" id="checkIndeterminate" {% if form.available.value %}checked{% endif %}>
+                    <label class="form-check-label" for="checkIndeterminate">
+                        Available
+                    </label>
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group d-flex justify-content-center" style="margin-left: 150px; ">
+                <div class="update-button">
+                    <button type="submit" class="btn btn-dark mb-3" style="width: 200px;">Add Car</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+
+
+{% endblock %}

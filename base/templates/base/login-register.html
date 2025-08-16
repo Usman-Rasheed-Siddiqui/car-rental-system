@@ -1,0 +1,260 @@
+
+{% extends 'main.html' %}
+
+{% block content %}
+
+<style>
+    .login-form-centre {
+        display : flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 40px;
+    }
+
+    .login-container {
+        width = 100%;
+        max-width: 450px;
+    }
+    .heading-login {
+        margin-top: 20px;
+        text-align: center;
+    }
+    .form-text {
+        margin-top: 10px;
+    }
+    .login-button {
+        text-align: center;
+        margin-top: 10px;
+    }
+    .ask-register {
+        margin-top: 10px;
+    }
+    .messages .alert {
+        margin-top: 15px;
+        color: #721c24;
+        background-color: #f8d7da;
+        border: 1px solid #f5c6cb;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+</style>
+
+<style>
+    .form-row {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 20px;
+        max-width: 700px;
+    }
+    .form-group {
+        flex: 1;
+    }
+    .term-check {
+        margin-top: 20px 0;
+    }
+    .heading-register {
+        text-align: center;
+        margin-top: 20px;
+    }
+    .register-centre {
+        height: 60vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 40px;
+    }
+    .register-button {
+        text-align: left;
+        margin-top: 10px;
+    }
+    .login-button {
+        text-align: left;
+    }
+
+</style>
+
+{% if page == 'login' %}
+
+<div class = "heading-login">
+    <h1> Login </h1>
+</div>
+
+<div class="login-form-centre">
+    <div class="login-container">
+        <form method = "POST" action = ''>
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Email Address</label>
+                <input type="type" class="form-control" id="exampleFormControlInput1" name="email" value="{{ form.email.value|default_if_none:"" }}" placeholder="Enter Email Address" required>
+                <div class="invalid-feedback">
+                    Enter an Email Address
+                </div>
+            </div>
+            
+            <div class="mb-3">
+                <label for="inputPassword5" class="form-label">Password</label>
+                <input type="password" id="inputPassword5" class="form-control" name="password" placeholder="Enter Password" aria-describedby="passwordHelpBlock" required>
+                <div class="invalid-feedback">
+                    Enter a Password
+                </div>
+            </div>
+
+            <div id="passwordHelpBlock" class="form-text mb-3">
+            Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
+            </div>
+        
+            <div class="login-button">
+                <button type="submit" class="btn btn-primary mb-3" value="login">Confirm identity</button>
+            </div>
+        </form>
+
+        <div class="ask-register text-center">
+            <p>Haven't signed up yet?</p>
+            <a href = "{% url 'register' %}" class="btn btn-primary mb-3">Register</a>
+        </div>
+
+    </div>
+</div>
+
+
+{% else %}
+
+<div class='heading-register'>
+    <h1>Register</h1>
+</div>
+
+<div class="register-centre">
+    <form method="POST" action = ''>
+        {% csrf_token %}
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="validationCustomUsername" class="form-label">Username</label>
+                <div class="input-group has-validation">
+                    <span class="input-group-text" id="inputGroupPrepend">@</span>
+                    <input type="text" name = "username" value="{{ form.username.value|default_if_none:"" }}" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+                    <div class="invalid-feedback">
+                        Please choose a username.
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                <div class="input-group has-validation">
+                    <span class="input-group-text" id="inputGroupPrepend"></span>
+                    <input type="email" name= "email" value="{{ form.email.value|default_if_none:"" }}" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" required>
+                    <div class="invalid-feedback">                  
+                        Please provide an email address.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="inputPassword1" class="form-label">Password</label>
+                <div class="input-group has-validation">
+                    <span class="input-group-text" id="inputGroupPrepend"></span>
+                    <input type="password" name= "password1" id="inputPassword1" class="form-control" required>
+                    <div id="passwordHelpBlock" class="form-text">
+                        Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
+                    </div>
+                    <div class="invalid-feedback">                  
+                        Please provide a password.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="inputPassword2" class="form-label">Confirm Password</label>
+                <div class="input-group has-validation">
+                    <span class="input-group-text" id="inputGroupPrepend"></span>
+                    <input type="password" name= "password2" id="inputPassword2" class="form-control" required>
+                    <div class="invalid-feedback">                  
+                        Please confirm your password.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="termsCheck" required>
+            <label class="form-check-label" for="termsCheck">
+                Agree to terms and conditions
+            </label>
+            <div class="invalid-feedback">
+                You must agree before submitting.
+            </div>
+        </div>  
+
+        <div class="register-button">
+            <button type="submit" class="btn btn-primary mb-3" value="register">Register</button>
+        </div>
+
+        <div class="ask-user">
+            <p>Already have an account?</p>
+        </div>
+
+        <div class="login-button">
+            <a href = "{% url 'login' %}" class="btn btn-primary mb-3">Login</a>
+        </div>
+
+    </form>
+
+</div>
+
+{% endif %}
+
+<!--  Toast to show pop up messages -->
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  {# For Django messages #}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <strong class="me-auto">Note</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    {{message}}
+                </div>
+            </div>
+
+        {% endfor %}
+    {% endif %}
+
+    {% if form.non_field.errors %}
+        {% for error in form.non_field.errors %}
+            <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <strong class="me-auto">Error</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    {{ error }}
+                </div>
+            </div>
+
+        {% endfor %}
+    {% endif %}
+
+</div>
+
+
+<!-- Java Script to make the toast work -->
+<script>
+const toastTrigger = document.getElementById('liveToastBtn')
+
+if (toastTrigger) {
+  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+  toastTrigger.addEventListener('click', () => {
+    toastBootstrap.show()
+  })
+}
+</script>
+
+{% endblock %}

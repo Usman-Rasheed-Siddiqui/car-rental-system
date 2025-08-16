@@ -1,0 +1,132 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+
+<style>
+
+    .alert-danger {
+        margin-top: 15px;
+        color: #721c24;
+        background-color: #f8d7da;
+        border: 1px solid #f5c6cb;
+        padding: 10px;
+        border-radius: 5px;
+        width: 320px;
+        margin: 0 auto;
+        margin-top: 10px;
+        
+    }
+
+    .alert-success {
+        margin-top: 15px;
+        color: #155724;
+        background-color: #d4edda;
+        border: 1px solid #c3e6cb;
+        padding: 10px;
+        border-radius: 5px;
+        width: 320px;
+        margin: 0 auto;
+        margin-top: 10px;
+        
+    }
+
+</style>
+
+
+<div class="car-container d-flex justify-content-center align-items-center" style="min-height: 70vh; margin-top: 40px;">
+
+  <div class="card mb-3" style="width: 90vw; height:80vh">
+
+    <div class="row g-0">
+    <div class="col-md-4" style="margin-top: 90px;">
+      <img src="{{car.image.url}}" class="img-fluid rounded-start" alt="car image">
+    </div>
+    <div class="col-md-8" style="display: flex;">
+      <div class="d-flex" style="height: 300px; margin-top:130px;">
+        <div class="vr"></div>
+      </div>
+      <div class="card-body" style="align: justify; margin-left: 70px; margin-top:110px; ">
+        <h5 class="card-title">{{car.brand}} {{car.model}}</h5> <!-- display-6 fw-bold -->
+        <p style="font-style: italic; align: justify;"><strong>- </strong>"{{ car.description }}"</p>
+        <ul class="card-text" > <!-- style="margin-top:20px;" -->
+            <li><strong>Price Per Day:</strong> {{ car.price_per_day }} PKR</li> <!--class="blockquote" -->
+            <li><strong>Seats:</strong> {{ car.seats }}</li>
+            <li><strong>Fuel:</strong> {{ car.fuel }}</li>
+            <hr>
+            <li><strong>Number Of Cars:</strong> {{ car.number_of_cars }}</li>
+            <li><strong>Availability:</strong> {{ car.available }}</li>
+            <li><strong>Car ID:</strong> {{ car.id }}</li>
+
+            <form style="display: flex;">
+              <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal1" style="margin-top:25px;">
+                  Edit Car
+              </button>
+              <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal2" style="margin-top:25px; margin-left:500px; max-height: 50px;">
+                  Remove Car
+              </button>
+            </form>
+            
+        </ul>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Modal Edit Car-->
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" style="max-width: 560px;">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit {{car.brand|title}} {{car.model|title}}</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <form method = "POST" action ="{% url 'edit_car' car.id %}" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="modal-body" style="max-width: 550px;">
+          {% include 'base/admin_page/pop_edit.html' %}
+        </div>
+        <div class="modal-footer">
+          
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+
+      </form>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- Modal Remove Car-->
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel" >Remove {{car.brand|title}} {{car.model|title}}</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to remove <strong>{{car.brand|title}} {{car.model|title}}</strong>?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <form method = "POST" action = "{% url 'delete_car' car.id %}">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger">Remove</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
