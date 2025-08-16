@@ -120,7 +120,9 @@ python manage.py runserver
 http://127.0.0.1:8000/
 ```
   - For Admin (Django Administration)
+```bash
 http://127.0.0.1:8000/admin
+```
 ---
 
 ## Features
