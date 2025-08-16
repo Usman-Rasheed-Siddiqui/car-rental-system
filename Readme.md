@@ -104,17 +104,22 @@ python manage.py makemigrations
 python manage.py migrate
 ```
 
-6. Create superuser (for admin access)
+6. Run requirements.txt
+```bash
+pip install -r requirements.txt
+```
+
+7. Create superuser (for admin access)
 ```bash
 python manage.py createsuperuser
 ```
 
-7. Run development server
+8. Run development server
 ```bash
 python manage.py runserver
 ```
 
-8. Copy this link and paste as URL
+9. Copy this link and paste as URL
   - For page
 ```bash
 http://127.0.0.1:8000/
