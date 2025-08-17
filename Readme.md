@@ -76,15 +76,21 @@ Make sure you have Python 3.9+ installed.
 
 ### Installation
 1. Open CMD
+  - Press
 ```bash
 WIN + R
+```
+  - Type
+```bash
 cmd
 ```
 
-2. Clone the repository
+2. Clone the repository (After moving to your desirable directory)
 ```bash
 git clone https://github.com/Usman-Rasheed-Siddiqui/car-rental-system.git
 ```
+  Note: In case you don't have git downloaded, download the zip file of the repository and extract it in your desired folder.
+        Then open cmd and follow the following steps.
 
 3. Navigate to the directory
 ```bash
