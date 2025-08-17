@@ -5,28 +5,25 @@ A Django-Python based Car Rental System that allows users to rent cars, manage a
 
 ## 🗂️ Table of Contents
 
-- [🗃️ Project File Structure](#️project-file-structure-cli)
-- [⚡ Getting Started](#getting-started)
-  - [▶️ Running the App](#running-the-app)
+- [🗃️ Project File Structure](#️project-file-structure)
+- [⚡ Installation](#installation)
 - [🌟 Features](#features)
-- [👤 Roles in the System](#roles-within-system)
+- [📦 Requirements](#requirements)
+- [👤 Roles Within System](#roles-within-system)
   - [🙋‍♂️ Customer (User)](#customer-user)
   - [🛠️ Administrator (Admin)](#administrator-admin)
-- [📦 Requirements](#requirements)
 - [❗ Potential Problems](#potential-problems)
 - [🧪 Testing Checklist](#testing)
 - [📘 License](#license)
-- [🤝 Contributors](#contributors)
-
 ---
 
-## Project File Structure
+## 🗃️ Project File Structure
 
 ```bash
 car_rental_system/
 │
 ├── base/
-│ ├── _pycache_/
+│ ├── `__pycache__/`
 │ ├── migrations/
 │ ├── templates/
 │ ├── __init__.py
@@ -39,15 +36,15 @@ car_rental_system/
 │ └── views.py
 │
 ├── car_rental_system/
-│ ├── pycache/
-│ ├── init.py
+│ ├── `__pycache__/` 
+│ ├── `__init__.py`  
 │ ├── asgi.py
 │ ├── settings.py
 │ ├── urls.py
 │ └── wsgi.py
 │
 ├── rental_management/
-│ ├── init.py
+│ ├── `__init__.py`
 │ └── rental_manager.py
 │
 ├── media/
@@ -72,9 +69,8 @@ car_rental_system/
 
 ```
 
-Make sure you have Python 3.9+ installed.
+### ⚡ Installation
 
-### Installation
 1. Open CMD
   - Press
 ```bash
@@ -136,7 +132,7 @@ http://127.0.0.1:8000/admin
 ```
 ---
 
-## Features
+## 🌟 Features
 
 - **User Authentication and Profile Management**
   - Create account, login, and update personal details
@@ -179,87 +175,72 @@ http://127.0.0.1:8000/admin
     - Car images: Stored in `media/car_images/`
     - Static assets: CSS, JavaScript, logos in `static/`
 
-## 🛠️ Setup Instructions
+## 📦 Requirements
 
 - **Prerequisites**
     - Python 3.8+
     - pip
+    - pillow
+    - django
+    - Any other from requirements.txt
 ---
 
-## Roles Within System
+## 👤 Roles Within System
 
-### Customer (User)
+### 🙋‍♂️ Customer (User)
 
-* Can register a new account and login securely
-* Can rent one car at a time based on availability
-* Can return a rented car (with penalties if late)
-* Can view their rental status (rented car, balance, etc.)
-* Can update personal information (password, address)
-* Can view available cars or search for a specific car
-* Can review their rental history and any car’s history
-* Can provide feedback to the admin
-* Cannot manage or modify the car fleet
+- Can register a new account and login securely  
+- Can rent one car at a time based on availability  
+- Can return a rented car (with penalties if late)  
+- Can view their rental status (rented car, balance, etc.)  
+- Can update personal information (password, address)  
+- Can view available cars or search for a specific car  
+- Can review their rental history and any car’s history  
+- Can provide feedback to the admin  
+- Cannot manage or modify the car fleet  
 
-### Administrator (Admin)
+### 🛠️ Administrator (Admin)
 
-* Can login using admin credentials
-* Can add an entire car fleet or individual cars
-* Can remove specific cars or entire fleets
-* Can view all customers and their rental history
-* Can monitor all current rentals and reserved cars
-* Can access user feedback for system improvement
-* Can view all available car IDs and details
-* Can update admin password
-* Cannot rent or reserve cars
+- Can login using admin credentials  
+- Can add an entire car fleet or individual cars  
+- Can remove specific cars or entire fleets  
+- Can view all customers and their rental history  
+- Can monitor all current rentals and reserved cars  
+- Can access user feedback for system improvement  
+- Can view all available car IDs and details  
+- Can update admin password  
+- Cannot rent or reserve cars  
 ---
 
-## Requirements
+## ❗ Potential Problems
 
-The project requires:
+### 1. The requirements.txt not running
+Open the requirements.txt and install the libraries manually.
+```bash
+pip install <library_name> 
+```
 
-* Python 3.9+
-
----
-
-## Potential Problems:
-
-### 1. No Screen Clearing after each operation
-
-This problem arose on Pycharm IDE. If encountered this problem. Use VS Code to run the program. 
-
-### 2. Not Able to Remember Car ID:
-
-If you forget to take a screenshot of the receipt, you can use "Check Status" to check and copy your rented Car ID.
-
----
-
-## Testing
+## 🧪 Testing Checklist
 
 Make sure to:
 
-* Register a new user account and login successfully
-* Rent an available car and verify receipt generation
-* Return a car and check if penalties apply for late returns
-* Attempt login as Admin using admin credentials
-* Add new cars or remove specific cars via Admin interface
-* View and verify reports for:
-  - All customers and their current rentals
-  - Rental history of specific users and cars
-  - Currently reserved cars
-* Submit feedback as a user and access it via Admin panel
-* Update user balance and personal information
-* Exit gracefully from any operation to test exception handling
+- [ ] Register a new user account and login successfully  
+- [ ] Rent an available car and verify receipt generation  
+- [ ] Return a car and check if penalties apply for late returns  
+- [ ] Attempt login as Admin using admin credentials  
+- [ ] Add new cars or remove specific cars via Admin interface  
+- [ ] View and verify reports for:  
+  - [ ] All customers and their current rentals  
+  - [ ] Rental history of specific users and cars  
+  - [ ] Currently reserved cars  
+- [ ] Submit feedback as a user and access it via Admin panel  
+- [ ] Update user balance and personal information  
+- [ ] Exit gracefully from any operation to test exception handling  
 ---
 
-## License
+
+## 📘 License
 
 This project is developed solely for educational use and academic evaluation. It is not intended for commercial deployment or distribution.
-
----
-
-## Contributors
-
-* Usman Rasheed Siddiqui (CS-24038)
-* Huzaifa Hanif (CS-24039)
 
 ---
