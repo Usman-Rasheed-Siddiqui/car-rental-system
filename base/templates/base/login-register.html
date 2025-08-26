@@ -126,7 +126,7 @@
 </div>
 
 <div class="register-centre">
-    <form method="POST" action = ''>
+    <form method="POST" action = '' style="margin-top: 80px;">
         {% csrf_token %}
 
         <div class="form-row">
@@ -148,6 +148,30 @@
                     <input type="email" name= "email" value="{{ form.email.value|default_if_none:"" }}" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" required>
                     <div class="invalid-feedback">                  
                         Please provide an email address.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="validationCustomUsername" class="form-label">First Name</label>
+                <div class="input-group has-validation">
+                    <span class="input-group-text" id="inputGroupPrepend"></span>
+                    <input type="text" name = "first_name" value="{{ form.first_name.value|default_if_none:"" }}" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+                    <div class="invalid-feedback">
+                        Please choose a first name.
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleFormControlInput1" class="form-label">Last Name</label>
+                <div class="input-group has-validation">
+                    <span class="input-group-text" id="inputGroupPrepend"></span>
+                    <input type="text" name= "last_name" value="{{ form.last_name.value|default_if_none:"" }}" class="form-control" id="exampleFormControlInput1" required>
+                    <div class="invalid-feedback">                  
+                        Please provide an last name.
                     </div>
                 </div>
             </div>

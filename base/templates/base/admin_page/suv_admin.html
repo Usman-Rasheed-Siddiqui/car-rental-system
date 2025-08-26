@@ -1,0 +1,122 @@
+
+
+{% load static %}
+
+<style>
+    .carousel-item {
+        position: relative;
+    }
+    .carousel-item img {
+        object-fit: cover;
+        height: 80vh;
+        width: 100%;
+    }
+    .carousel-item::after {
+        content:"";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 35%;
+        width: 100%;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+        z-index: 1;
+    }    
+    .carousel-caption {
+        position: absolute;
+        bottom: 20px;
+        z-index: 2;
+        color: white;
+    }
+    .card-row {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin: 20px auto;
+        max-width: 1200px;
+    }
+    .card-car {
+        flex: 0 0 auto; /* No to stretch */
+    }
+    .embose-text {
+        color: #fff;
+        text-shadow:
+            -2px -2px 2px rgba(255,255,255,0.2), 
+            2px 2px 2px rgba(0,0,0,0.6);
+    }
+
+    .inner-scrollspy-nav {
+        position:sticky; 
+        top:0; 
+        z-index:1000;
+    }
+
+    .inner-scrollspy-nav .nav-pills .nav-link {
+        color: black;
+    }
+
+    .inner-scrollspy-nav .nav-pills .nav-link.active {
+        color: white !important; 
+        background-color: black !important;
+        border: none;
+    }
+
+</style>
+
+<div class= 'scroll-spy-container' style='margin-top:20px;'>
+    <div class="inner-scrollspy-nav">
+        <nav id="navbar-suv" class="navbar px-3 mb-3" style="background-color:#f8f9fa;">
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a class="nav-link" href="#scrollspyHeadingSUV" >SUV</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Show Brands</a>
+                    <ul class="dropdown-menu">
+                        {% for brand in suv_brands %}
+                            <li><a class="dropdown-item" href="#scrollspyHeading{{ brand }}">{{brand}}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example bg-body-tertiary p-3 rounded-2" tabindex="0">
+
+        <!-- Brand Heading -->
+        <hr>
+        <h4 id="scrollspyHeadingSUV"></hr>
+        
+        {% for brand in suv_brands %}
+            <hr>
+            <h4 id="scrollspyHeading{{ brand }}", style= "margin-top:20px;">
+                <img src="{% static 'logos/' %}{{ brand|lower }}.png" class="img-thumbnail" alt="{{brand}} logo" style="height: 34px; width: auto;">
+                {{ brand|title }}
+            </h4>
+            <hr>
+            <div  class="row row-cols-1 row-cols-md-3 g-4">
+                {% for car in suv_cars %}
+                    {% if car.brand == brand %}
+                        <div class="col">
+                            <div class="card d-flex flex-column h-100" style="width: 18rem; min-height:300px;">
+                                <img src="{{car.image.url}}" class="card-img-top" alt="{{car.brand}} {{car.model}}" style="height: 180px; object-fit: contain; padding: 5px;">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{car.brand|title}} {{car.model|title}}</h5>
+                                    <p class="card-text"><strong>Price Per Day:</strong> {{car.price_per_day}} PKR</p>
+                                    <p class="card-text"><strong>No. Of Cars:</strong> {{car.number_of_cars}}</p>
+                                    <p class="card-text"><strong>Car ID:</strong> {{car.id}}</p>
+                                    <div class="mt-auto">
+                                        <a href="{% url 'view_car' car.id %}" class="btn btn-primary w-30">See More</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% empty %}
+                        <p> No {{car.brand}} cars available at the moment.</p>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+
+</div>

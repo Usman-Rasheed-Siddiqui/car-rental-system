@@ -1,5 +1,7 @@
 {% load static %}
 
+{% block content %}
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand fw-semibold" href="{% url 'home' %}" >
@@ -19,13 +21,13 @@
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Our Fleet
           </a>
-          <ul class="dropdown-menu">
+          <ul class="dropdown-menu" style="z-index: 2000 !important;">
             <li><a class="dropdown-item" href="{% url 'economy' %}">Economy</a></li>
-            <li><a class="dropdown-item" href="#">SUVs</a></li>
-            <li><a class="dropdown-item" href="#">Luxury</a></li>
-            <li><a class="dropdown-item" href="#">Pick Up</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Show All</a></li>
+            <li><a class="dropdown-item" href="{% url 'suv' %}">SUVs</a></li>
+            <li><a class="dropdown-item" href="{% url 'luxury' %}">Luxury</a></li>
+            <li><a class="dropdown-item" href="{% url 'pickup' %}">Pick Up</a></li>
+            <!--<li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Show All</a></li> -->
           </ul>
         </li>
 
@@ -45,8 +47,9 @@
         <a class="nav-link" href="{% url 'logout' %}">Logout</a>
 
         <li class="nav-item">
-        <a class="nav-link" href="#">{{request.user|title}}</a>
-        </li>
+        <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasRight" role="button" aria-controls="offcanvasRight">
+            {{request.user|title}}
+        </a>
         
         {% else %}
         <a class="nav-link" href="{% url 'login' %}">Login/Register</a>
@@ -57,3 +60,41 @@
     </ul>
   </div>
 </nav>
+
+
+<div class="offcanvas-container">
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasRightLabel">{{request.user|title}}'s Dashboard</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body d-flex flex-column">
+
+          <div class="d-flex flex-column gap-2 ms-3">
+
+              <a href="{% url 'returning' %}" class="btn btn-outline-dark">Return Car</a>
+
+              <a href="{% url "user_rental_history" %}" class="btn btn-outline-dark">View Rental History</a>
+
+              <a href="{% url 'update_balance' %}" class="btn btn-outline-dark">Update Balance</a>
+          </div>
+
+          <div class="mt-auto ms-1">      <!-- class="form-group" style="margin-top: 370px; margin-left: 5px;" -->
+              <a href="{% url 'user_profile' %}" class="btn btn-outline-dark btn-lg d-flex justify-content-between align-items-center w-100" style="max-width: 350px; border-radius: 50px;">
+                  <div class="text-start ms-1 mt-1">
+                      <div class="fw-semibold" style="font-size: 18px;">{{request.user|title}}</div>
+                      <div style="font-size: 13px;">View Profile</div>
+                  </div>
+                  <div class="profile-pic">
+                      <img src="{{ user_info.profile_picture.url }}" class="rounded-circle" alt="{{ request.user }}" style="height: 50px; width: 50px; object-fit:cover;">
+                  </div>
+              </a>
+          </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock  %}
+

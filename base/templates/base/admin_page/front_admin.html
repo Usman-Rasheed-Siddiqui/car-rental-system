@@ -1,4 +1,3 @@
-
 {% extends 'main.html' %}
 
 {% block content %}
@@ -23,37 +22,50 @@
   <div class="row">
     <!-- SideBar -->
     <div class = "col-2 bg-black sidebar-nav">
-      <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical" style="position:sticky; top: 20px; overflow-y: auto margin-top: 20px;">
-        <button class="nav-link active" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="true" style="margin-top: 20px;">View Profile</button>
-        <button class="nav-link" id="v-pills-cars-tab" data-bs-toggle="pill" data-bs-target="#v-pills-cars" type="button" role="tab" aria-controls="v-pills-cars" aria-selected="false">View All Cars</button>
-        <button class="nav-link" id="v-pills-add-tab" data-bs-toggle="pill" data-bs-target="#v-pills-add" type="button" role="tab" aria-controls="v-pills-add" aria-selected="false">Add A Car</button>
-        <button class="nav-link" id="v-pills-histories-tab" data-bs-toggle="pill" data-bs-target="#v-pills-histories" type="button" role="tab" aria-controls="v-pills-histories" aria-selected="false">View Rental Histories</button>
+      <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical" style="position: sticky; top: 20px; overflow-y: auto; margin-top: 20px;">
+        
+        <button class="nav-link active" id="tab-profile-tab" data-bs-toggle="pill" data-bs-target="#tab-profile" type="button" role="tab" aria-controls="tab-profile" aria-selected="true" style="margin-top: 20px;">View Profile</button>
+        
+        <button class="nav-link" id="tab-cars-tab" data-bs-toggle="pill" data-bs-target="#tab-cars" type="button" role="tab" aria-controls="tab-cars" aria-selected="false">View All Cars</button>
+        
+        <button class="nav-link" id="tab-add-tab" data-bs-toggle="pill" data-bs-target="#tab-add" type="button" role="tab" aria-controls="tab-add" aria-selected="false">Add A Car</button>
+        
+        <button class="nav-link" id="tab-histories-tab" data-bs-toggle="pill" data-bs-target="#tab-histories" type="button" role="tab" aria-controls="tab-histories" aria-selected="false">View Rental Histories</button>
+        
+        <button class="nav-link" id="tab-current-tab" data-bs-toggle="pill" data-bs-target="#tab-current" type="button" role="tab" aria-controls="tab-current" aria-selected="false">Current Rentals</button>
       </div>
     </div>
     
     <!-- Main Content -->
     <div class="col-10">
       <div class="tab-content" id="v-pills-tabContent">
-        <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0">
-          {% include "base/admin_page/view_profile_admin.html" %}
+
+        <div class="tab-pane fade show active" id="tab-profile" role="tabpanel" aria-labelledby="tab-profile-tab" tabindex="0">
+          {% include 'base/admin_page/view_profile_admin.html'%}
         </div>
 
-        <div class="tab-pane fade" id="v-pills-cars" role="tabpanel" aria-labelledby="v-pills-cars-tab" tabindex="0">
-          {% include "base/admin_page/view_all_car.html" %}
+        <div class="tab-pane fade" id="tab-cars" role="tabpanel" aria-labelledby="tab-cars-tab" tabindex="0">
+          {% include 'base/admin_page/view_all_car.html'%}
         </div>
 
-        <div class="tab-pane fade" id="v-pills-add" role="tabpanel" aria-labelledby="v-pills-add-tab" tabindex="0">
-          {% include 'base/admin_page/add_car.html' %}
+        <div class="tab-pane fade" id="tab-add" role="tabpanel" aria-labelledby="tab-add-tab" tabindex="0">
+          {% include 'base/admin_page/add_car.html'%}
         </div>
-        <div class="tab-pane fade" id="v-pills-histories" role="tabpanel" aria-labelledby="v-pills-histories-tab" tabindex="0">...</div>
-        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab" tabindex="0">...</div>
+
+        <div class="tab-pane fade" id="tab-histories" role="tabpanel" aria-labelledby="tab-histories-tab" tabindex="0">
+          {% include 'base/admin_page/rental_history.html'%}
+        </div>
+
+        <div class="tab-pane fade" id="tab-current" role="tabpanel" aria-labelledby="tab-current-tab" tabindex="0">
+          {% include 'base/admin_page/current_rentals.html'%}
+        </div>
+
       </div>
     </div>
   </div>
 </div>
 
 <!--  Toast to show pop up messages -->
-
 <div class="toast-container position-fixed bottom-0 end-0 p-3">
   {# For Django messages #}
   {% if messages %}
@@ -67,17 +79,13 @@
           {{message}}
         </div>
       </div>
-
-  {% endfor %}
+    {% endfor %}
   {% endif %}
-
 </div>
-
 
 <!-- Java Script to make the toast work -->
 <script>
 const toastTrigger = document.getElementById('liveToastBtn')
-
 if (toastTrigger) {
   const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
   toastTrigger.addEventListener('click', () => {
@@ -87,4 +95,3 @@ if (toastTrigger) {
 </script>
 
 {% endblock %}
-

@@ -1,0 +1,87 @@
+
+{% extends 'main.html' %}
+
+
+{% block content %}
+
+{% if recent_rent %}
+
+  <div class="car-container d-flex justify-content-center align-items-center" style="min-height: 70vh; margin-top: 40px;">
+
+      <div class="card mb-3" style="width: 90vw; height:80vh">
+
+          <div class="row g-0">
+              <div class="col-md-4 d-flex justify-content-center align-items-center" style="margin-top: 90px;">
+                  <img src="{{recent_rent.image}}" class="img-fluid rounded-start" alt="car image"
+                  style="max-height: 300px; object-fit: contain; padding: 5px;">
+              </div>
+              <div class="col-md-8" style="display: flex;">
+                  <div class="d-flex" style="height: 300px; margin-top:130px; margin-left: 70px;">
+                      <div class="vr"></div>
+                  </div>
+              <div class="card-body" style="align: justify; margin-left: 70px; margin-top: 110px;">
+                  <h3 class="card-title mb-4">{{recent_rent.brand}} {{recent_rent.model}}</h3> <!-- display-6 fw-bold -->
+                  <div class="row">
+
+                      <div class="col-md-4 mb-1">
+                          <p class="blockquote"> <strong>Rent Date:</strong> {{ recent_rent.rent_date }} </p>
+                          <p class="blockquote"> <strong>Total Price:</strong> {{ recent_rent.total_price }} PKR </p>
+                      </div>
+
+                      <div class="col-md-4 mb-1">
+                          <p class="blockquote"> <strong>Days:</strong> {{ recent_rent.days }} </p>
+                          <p class="blockquote"> <strong>Return Date:</strong> {{ recent_rent.return_date }} </p>
+                      </div>
+                      
+                  </div>
+
+                  <div class="row">
+                      <div class="col-md-4 mb-1">
+                          <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+                              Return Car
+                          </button>
+                      </div>                
+                  </div>
+
+              </div>
+          
+          </div>
+      </div>
+  </div>
+
+{% else %}
+
+    <div class="car-container d-flex justify-content-center align-items-center" style="margin-top:100px;">
+        <div class="card mb-3" style="width: 60vw; height:10vh">
+            <div class="card-body" style="align: justify; margin-left: 30px; margin-top:8px;">
+                <p> No Current Rental</p>
+            </div>
+        </div>
+    </div>
+
+
+{% endif %}
+
+<!-- Modal Remove Car-->
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel" >Return {{recent_rent.brand|title}} {{recent_rent.model|title}}</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to return <strong>{{recent_rent.brand|title}} {{recent_rent.model|title}}</strong>?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+        <form method = "POST" action = "{% url 'confirm_return' %}">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-warning">Return</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

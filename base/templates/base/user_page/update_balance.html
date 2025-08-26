@@ -1,0 +1,224 @@
+
+{% extends "main.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<style>
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .credit-number {
+    
+        font-family: 'OCR A', monospace;
+        font-size: 20px;
+        letter-spacing: 4px;
+
+        position: absolute;
+        bottom: 60px;
+        left: 12%;
+        color: grey;
+
+    }
+
+    .credit-font {
+
+        font-family: 'OCR A', monospace;
+        font-size: 13px;
+        letter-spacing: 4px;
+
+        position: absolute;
+        bottom: 40px;
+        left: 12%;
+        color: grey;   
+    
+    }
+
+</style>
+
+<div>
+    <label class="form-label" style="margin-top: 30px; margin-left: 630px;"><h1>Update Balance</h1></label>
+</div>
+
+{% if not user_info.card_number %}
+
+    <div style="margin-left: 30px">
+        <form method="POST" action="" enctype="multipart/form-data" style="margin-left: 70px;"> 
+            {% csrf_token %}
+
+            <div class="form-row" style="max-width: 900px; margin-top: 40px;">
+                <div class="form-group">
+                    <label for="exampleFormControlInput1" class="form-label"><h4>Card Number</h4></label>
+                    <div class="input-group has-validation">
+                        <input type="number" name = "card_number" value="{{ form.card_number.value }}" class="form-control" id="id_card_number" required>
+                        <div class="invalid-feedback">
+                            Please enter the card number.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="select">
+                        <label for="exampleFormControlInput1" class="form-label"><h4>Card Type</h4></label>
+                        <select class="form-select" name="card_type" aria-label="Default select example" style="max-width: 440px;" required>
+                            <option value="" selected disabled></option>
+                            <option value="visa" {% if form.card_type.value == "visa" %}selected{% endif %}>VISA</option>
+                            <option value="mastercard" {% if form.card_type.value == "mastercard" %}selected{% endif %}>MasterCard</option>
+                        </select>    
+                        <div class="invalid-feedback">
+                            Please choose a card type.
+                        </div>                
+                    </div>
+                </div>
+
+            <div class="form-row" style="max-width: 900px;">
+                <div class="form-group">
+                    <label for="exampleFormControlInput1" class="form-label"><h4>Balance</h4></label>
+                    <div class="input-group has-validation">
+                        <input type="number" name = "balance" value="{{ form.balance.value}}" class="form-control" id="id_balance" required>
+                        <div class="invalid-feedback">
+                            Please enter the balance.
+                        </div>
+                    </div>
+                </div>                
+
+            <div class="form-row">
+                <div class="form-group d-flex justify-content-center" style="margin-left: 430px; margin-top: 50px;">
+                    <div class="submit-button">
+                        <button type="submit" class="btn btn-dark mb-3" style="width: 200px;">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+{% else %}
+
+    <div class="car-container d-flex justify-content-center align-items-center" style="min-height: 70vh; margin-top: 40px;">
+
+        <div class="card mb-3" style="width: 90vw; height:60vh">
+
+            <div class="row g-0 align-items-center">
+
+                <!--Image -->
+                <div class="col-md-4 p-4">
+                    <div class="image-container position-relative">
+                        <img src="{% static user_info.card_picture %}" class="img-fluid rounded-start" alt="card image">
+                        <div class="credit-number position-absolute">
+                            {{ proper }}
+                        </div>
+                        <div class="credit-font">
+                            {{request.user.first_name|upper}}
+                        </div>
+                    </div>
+                </div>
+
+                <!--Content Right Side -->
+                <div class="col-md-8 d-flex align-text-center">
+                    <div class="d-flex" style="height: 300px; margin-top:60px; margin-left: 10px;">
+                        <div class="vr"></div>
+                    </div>
+                    <div class="card-body" style="align: justify; margin-left: 30px; margin-top:40px;">
+                        <h2 class="card-title">{{request.user|title}}'s Balance</h2> <!-- display-6 fw-bold -->
+                            <div class="card-text row mt-3">
+                                <div class="col-md-6 mb-2 blockquote" style="margin-top: 20px;">
+                                    <label for="validationCustomUsername" class="form-label"><h4>Card Type</h4></label>
+                                    <input class="form-control" type="text" value="{{ user_info.card_type|upper }}" aria-label="Disabled input example" disabled readonly>
+                                </div>
+                                <div class="col-md-6 mb-2">
+                                </div>
+                                <div class="col-md-6 mb-2" style="max-width: 440px;">
+                                    <label for="validationCustomUsername" class="form-label"><h4>Balance</h4></label>
+                                    {% if user_info.balance < 0 %}
+                                        <input class="form-control" type="text" value="{{ abs_balance }} PKR needs to be deposited" aria-label="Disabled input example" disabled readonly>
+                                    {% else %}
+                                        <input class="form-control" type="text" value="{{ user_info.balance }}" aria-label="Disabled input example" disabled readonly>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="card-text row mt-3">
+                                <div class="col-md-6 mb-2">
+                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal1" style="margin-top:10px;">
+                                        Edit Information
+                                    </button>
+                                </div>
+                            </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endif %}
+
+
+<!-- Modal Edit Balance Info-->
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" style="max-width: 560px;">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Information</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <form method = "POST" action ="{% url "edit_balance" %}" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="modal-body" style="max-width: 550px;">
+          {% include 'base/user_page/pop_edit_balance.html' %}
+        </div>
+        <div class="modal-footer">
+          
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+
+      </form>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+
+<!--  Toast to show pop up messages -->
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  {# For Django messages #}
+  {% if messages %}
+    {% for message in messages %}
+      <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+          <strong class="me-auto">Note</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+          {{message}}
+        </div>
+      </div>
+
+  {% endfor %}
+  {% endif %}
+
+</div>
+
+
+<!-- Java Script to make the toast work -->
+<script>
+const toastTrigger = document.getElementById('liveToastBtn')
+
+if (toastTrigger) {
+  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+  toastTrigger.addEventListener('click', () => {
+    toastBootstrap.show()
+  })
+}
+</script>
+
+{% endblock %}

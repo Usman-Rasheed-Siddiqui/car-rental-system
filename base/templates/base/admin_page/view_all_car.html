@@ -1,6 +1,4 @@
 
-{% block content %}
-
 <style>
 
     .scrollspy-nav .nav-pills .nav-link {
@@ -28,16 +26,16 @@
 
             <ul class="nav nav-pills">
                 <li class="nav-item">
-                    <a class="nav-link" href="#scrollspyHeading1">Economy</a>
+                    <a class="nav-link" href="#scrollspyHeadingeconomy">Economy</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#scrollspyHeading2">SUVs</a>
+                    <a class="nav-link" href="#scrollspyHeadingsuv">SUVs</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#scrollspyHeading3">Luxury</a>
+                    <a class="nav-link" href="#scrollspyHeadingluxury">Luxury</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#scrollspyHeading4">Pick Ups</a>
+                    <a class="nav-link" href="#scrollspyHeadingpickup">Pick Ups</a>
                 </li>
             </ul>
         </nav>
@@ -49,24 +47,29 @@
         data-bs-smooth-scroll="true"
         class="scrollspy-example bg-body-tertiary p-3 rounded-2"
         tabindex="0">
-        <h4 id="scrollspyHeading1">Economy</h4>
+        <h4 id="scrollspyHeadingeconomy">Economy</h4>
         <hr>
         <div class="economy_cars">
             {% include 'base/admin_page/economy_admin.html' %}
         </div>
 
-        <h4 id="scrollspyHeading2">SUVs</h4>
-        <p>...</p>
+        <h4 id="scrollspyHeadingsuv">SUVs</h4>
+        <hr>
+        <div class="suv_cars">
+            {% include 'base/admin_page/suv_admin.html' %}
+        </div>
 
-        <h4 id="scrollspyHeading3">Luxury</h4>
-        <p>...</p>
+        <h4 id="scrollspyHeadingluxury">Luxury</h4>
+        <hr>
+        <div class="luxury_cars">
+            {% include 'base/admin_page/luxury_admin.html' %}
+        </div>
 
-        <h4 id="scrollspyHeading4">Pick Ups</h4>
-        <p>...</p>
+        <h4 id="scrollspyHeadingpickup">Pick Ups</h4>
+        <hr>
+        <div class="pickup_cars">
+            {% include 'base/admin_page/pickup_admin.html' %}
+        </div>
     </div>
 
-
-
 </div>
-
-{% endblock %}

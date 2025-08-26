@@ -1,6 +1,4 @@
 
-{% block content %}
-
 <style>
     .form-row {
         display: flex;
@@ -25,7 +23,7 @@
                 
                 <div class="image" style="margin-top: 40px;">
                     <label for="validationCustomUsername" class="form-label"><h4>Profile Picture</h4></label>
-                    <img src="{{ user_info.profile_picture.url }}" class="rounded mx-auto d-block" alt="{{ form.username.value }}" style="max-height: 200px; max-width: 200px;">
+                    <img src="{{ user_info.profile_picture.url }}" class="rounded-circle mx-auto d-block" alt="{{ user_form.username.value }}" style="max-height: 200px; max-width: 200px; object-position: center;">
                 </div>
 
                 <div class="choose-file" style="margin-top: 20px; max-width: 500px; margin-left: auto; margin-right: auto;">
@@ -42,7 +40,7 @@
                 <label for="validationCustomUsername" class="form-label"><h4>Username</h4></label>
                 <div class="input-group has-validation">
                     <span class="input-group-text" id="inputGroupPrepend">@</span>
-                    <input class="form-control" type="text" value="{{ form.username.value }}" aria-label="Disabled input example" disabled readonly>
+                    <input class="form-control" type="text" value="{{ user_form.username.value }}" aria-label="Disabled input example" disabled readonly>
                 </div>
             </div>
 
@@ -50,7 +48,7 @@
                 <label for="exampleFormControlInput1" class="form-label"><h4>Email address</h4></label>
                 <div class="input-group has-validation">
                     <span class="input-group-text" id="inputGroupPrepend"></span>
-                    <input class="form-control" type="email" value="{{ form.email.value }}" aria-label="Disabled input example" disabled readonly>
+                    <input class="form-control" type="email" value="{{ user_form.email.value }}" aria-label="Disabled input example" disabled readonly>
                 </div>
             </div>
         </div>
@@ -86,5 +84,3 @@
         </div>
     </form>
 </div>
-
-{% endblock %}

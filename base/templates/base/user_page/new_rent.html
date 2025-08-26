@@ -1,0 +1,50 @@
+
+
+{% block content %}
+
+{% if recent_rent %}
+
+  <div class="car-container d-flex justify-content-center align-items-center">
+
+    <div class="card mb-3" style="width: 60vw; height:32vh">
+
+      <div class="row g-0">
+        <div class="col-md-4 d-flex justify-content-center align-items-center">
+          <img src="{{recent_rent.image}}" class="img-fluid rounded-start" alt="car image"
+          style="max-height: 170px; object-fit: contain; padding: 5px;">
+        </div>
+        <div class="col-md-8" style="display: flex;">
+          <div class="d-flex" style="height: 170px; margin-top:25px; margin-left: 20px;">
+            <div class="vr"></div>
+          </div>
+          <div class="card-body" style="align: justify; margin-left: 30px; margin-top:30px;">
+            <h5 class="card-title">{{recent_rent.brand}} {{recent_rent.model}}</h5> <!-- display-6 fw-bold -->
+            <ul class="card-text" > <!-- style="margin-top:20px;" -->
+                <div class="row mt-3">
+                    <div class="col-md-6 mb-2">
+                        <strong>Rent Date:</strong> {{ recent_rent.rent_date }}
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <strong>Total Price:</strong> {{ recent_rent.total_price }} PKR
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <strong>Return Date:</strong> {{ recent_rent.return_date }}
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <strong>Days:</strong> {{ recent_rent.days }}
+                    </div>
+                </div>
+            </ul>
+          </div>
+
+      </div>
+    </div>
+  </div>
+
+{% else %}
+
+<p> No Current Rental</p>
+
+{% endif %}
+
+{% endblock %}

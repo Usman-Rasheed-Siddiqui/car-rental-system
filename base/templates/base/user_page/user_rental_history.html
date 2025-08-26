@@ -1,0 +1,72 @@
+
+{% extends "main.html" %}
+
+{% block content %}
+
+
+<div class="history-container" style="margin-left: 40px; margin-top: 20px;">
+    <div>
+        <label class="form-label" style="margin-top: 30px; margin-left: 630px;"><h1>Rental History</h1></label>
+    </div>
+    <div>
+        <label class="form-label"><p class="blockquote"><strong>Total Rents: </strong>{{count}}</p></label>
+    </div>
+    <hr style="max-width: 1400px;">
+
+    <div>
+        <label class="form-label"><p class="blockquote"><strong>Cars Rented: </strong></p></label>
+    </div>
+</div>
+    {% if histories.cars_rented %}
+        {% for rental in histories.cars_rented %}
+            <div class="car-container d-flex justify-content-center align-items-center">
+
+                <div class="card mb-3" style="width: 60vw; height:32vh">
+
+                    <div class="row g-0">
+                        <div class="col-md-4 d-flex justify-content-center align-items-center">
+                            <img src="{{rental.image}}" class="img-fluid rounded-start" alt="car image"
+                            style="max-height: 170px; object-fit: contain; padding: 5px;">
+                        </div>
+                        <div class="col-md-8" style="display: flex;">
+                            <div class="d-flex" style="height: 170px; margin-top:25px; margin-left: 20px;">
+                                <div class="vr"></div>
+                            </div>
+                            <div class="card-body" style="align: justify; margin-left: 30px; margin-top:30px;">
+                                <h5 class="card-title">{{rental.brand}} {{rental.model}}</h5> <!-- display-6 fw-bold -->
+                                <ul class="card-text" > <!-- style="margin-top:20px;" -->
+                                    <div class="row mt-3">
+                                        <div class="col-md-6 mb-2">
+                                            <strong>Rent Date:</strong> {{ rental.rent_date }}
+                                        </div>
+                                        <div class="col-md-6 mb-2">
+                                            <strong>Total Price:</strong> {{ rental.total_price }} PKR
+                                        </div>
+                                        <div class="col-md-6 mb-2">
+                                            <strong>Return Date:</strong> {{ rental.return_date }}
+                                        </div>
+                                        <div class="col-md-6 mb-2">
+                                            <strong>Days:</strong> {{ rental.days }}
+                                        </div>
+                                    </div>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+        {% endfor %}
+    {% else %}
+        <div class="car-container d-flex justify-content-center align-items-center">
+            <div class="card mb-3" style="width: 60vw; height:10vh">
+                <div class="card-body" style="align: justify; margin-left: 30px; margin-top:10px;">
+                    <p> No Cars Rented Yet</p>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+
+{% endblock %}

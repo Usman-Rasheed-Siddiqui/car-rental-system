@@ -2,7 +2,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
-from .models import Car
+from .models import Car, User_info
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -14,7 +14,7 @@ class CustomUserCreationForm(UserCreationForm):
     
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        fields = ['username', 'email', 'password1', 'password2', 'first_name', 'last_name']
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
@@ -129,3 +129,61 @@ class CarForm(forms.ModelForm):
                 )
 
         return cleaned_data
+
+class BalanceForm(forms.ModelForm):
+
+    class Meta:
+        model = User_info
+        fields = ['card_number', 'card_type', 'balance'] 
+
+    def clean_card_number(self):
+        
+        card_number = self.cleaned_data.get("card_number")
+
+        if len(str(card_number)) != 16:
+            raise forms.ValidationError("Card number should contain 16 digits")
+        
+        return card_number
+
+    def clean_balance(self):
+
+        balance = self.cleaned_data["balance"] 
+        
+        if balance is None:
+            raise forms.ValidationError("Balance is required")
+
+        if balance < 0:
+            raise forms.ValidationError("Invalid balance input")
+        
+        if balance == 0:
+            raise forms.ValidationError("Invalid Balance")
+
+        if balance > 100000000:
+            raise forms.ValidationError("Balance cannot be greater than 100000000 PKR")
+
+        return balance
+    
+
+    def clean_card_type(self):
+        card_type = self.cleaned_data.get("card_type")
+        valid_choices = [choice[0] for choice in self._meta.model._meta.get_field("card_type").choices]
+        if card_type not in valid_choices:
+            raise forms.ValidationError("Invalid card type selected.")
+        return card_type
+
+    
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+
+        card_map = {
+            "visa": "card/VISA_card.png",
+            "mastercard": "card/MasterCard_card.png",
+        }
+
+        instance.card_picture = card_map.get(instance.card_type, 'VISA_card.png')
+
+
+        if commit:
+            instance.save()
+        
+        return instance
