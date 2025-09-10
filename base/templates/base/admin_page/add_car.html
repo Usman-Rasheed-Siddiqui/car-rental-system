@@ -45,9 +45,9 @@
                 <label class="form-label">Brand</label>
                 <div class="input-group has-validation">
                     <input type="text" name = "brand" value="{{ form.brand.value|default_if_none:"" }}" class="form-control" id="id_brand" required>
-                    <div class="invalid-feedback">
-                        Please choose a brand.
-                    </div>
+                    <div id="validationServer03Feedback" class="invalid-feedback">
+                    Please provide a valid brand.
+                    </div> 
                 </div>
             </div>
 
@@ -55,9 +55,9 @@
                 <label class="form-label">Model</label>
                 <div class="input-group has-validation">
                     <input type="text" name= "model" value="{{ form.model.value|default_if_none:"" }}" class="form-control" id="id_model" required>
-                    <div class="invalid-feedback">
-                        Please choose a model.
-                    </div>                
+                    <div id="validationServer03Feedback" class="invalid-feedback">
+                    Please provide a valid model.
+                    </div>               
                 </div>
             </div>
         </div>

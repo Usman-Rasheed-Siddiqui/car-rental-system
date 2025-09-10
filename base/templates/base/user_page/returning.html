@@ -37,9 +37,19 @@
 
                   <div class="row">
                       <div class="col-md-4 mb-1">
-                          <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal2">
-                              Return Car
-                          </button>
+                            {% if rent_date < today %}
+                                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+                                    Return Car
+                                </button>
+                            {% elif rent_date > today %}
+                                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+                                    Cancel Order
+                                </button>
+                            {% else %}
+                                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+                                    Return Today
+                                </button>
+                            {% endif %}
                       </div>                
                   </div>
 
@@ -71,13 +81,25 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Are you sure you want to return <strong>{{recent_rent.brand|title}} {{recent_rent.model|title}}</strong>?
+        {% if rent_date < today %}
+            Are you sure you want to return <strong>{{recent_rent.brand|title}} {{recent_rent.model|title}}</strong>?
+        {% elif rent_date > today %}
+            Are you sure you want to cancel order for <strong>{{recent_rent.brand|title}} {{recent_rent.model|title}}</strong>?
+        {% else %}
+            Are you sure you want to return <strong>{{recent_rent.brand|title}} {{recent_rent.model|title}}</strong>?
+        {% endif %}
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
         <form method = "POST" action = "{% url 'confirm_return' %}">
-          {% csrf_token %}
-          <button type="submit" class="btn btn-warning">Return</button>
+            {% csrf_token %}
+            {% if rent_date < today %}
+                <button type="submit" class="btn btn-warning">Return</button>
+            {% elif rent_date > today %}
+                <button type="submit" class="btn btn-warning">Cancel Order</button>
+            {% else %}
+                <button type="submit" class="btn btn-warning">Return</button>
+            {% endif %}
         </form>
       </div>
     </div>

@@ -75,6 +75,16 @@
         </div>
 
         <div class="form-row" style="max-width: 900px; display: block">
+            <div class="form-group" style="margin-top: 20px;">
+                {% if not request.user.is_superuser %}
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalDelete">
+                    Delete Account
+                </button>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="form-row" style="max-width: 900px; display: block">
             <div class="form-group" style="margin-top: 30px;">
                 <label for="exampleFormControlInput1" class="form-label"><h4>Rented Car</h4></label>
                 {% include "base/user_page/new_rent.html" %}
@@ -94,5 +104,32 @@
         </div>
     </form>
 </div>
+
+
+<!-- Modal Delete Account-->
+<div class="modal fade" id="exampleModalDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel" >Delete Account</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+            Are you sure you want to delete your account?
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+        <form method = "POST" action = "{% url 'delete-account' %}">
+            {% csrf_token %}
+                <button type="submit" class="btn btn-warning">Delete</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 
 {% endblock %}

@@ -28,7 +28,19 @@
             <li><strong>Return Date:</strong> {{ return_date }}</li>
             <li><strong>Days:</strong> {{ days }}</li>
             <li><strong>Total Price:</strong> {{ total_price }} PKR</li>
-            <a href="{% url 'confirm-rent' car.id %}" class="btn btn-success" style="margin-top:20px;">Rent Car</a>
+
+            <div class="confirm">
+              {% if rent_date_obj is not None %}
+                {% if rent_date_obj > today %}
+                  <a href="{% url 'confirm-rent' car.id %}" class="btn btn-success" style="margin-top:20px;">Confirm Order</a>
+                {% else %}
+                  <a href="{% url 'confirm-rent' car.id %}" class="btn btn-success" style="margin-top:20px;">Rent Now</a>
+                {% endif %}
+              
+              {% else %}
+                <a href="{% url 'confirm-rent' car.id %}" class="btn btn-success" style="margin-top:20px;">Rent Car</a>
+              {% endif %}
+            </div>
         </ul>
       </div>
       

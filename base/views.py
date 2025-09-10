@@ -268,6 +268,7 @@ def change_date(request, pk):
 
     rent_date = request.GET.get('rent_date')
     return_date = request.GET.get('return_date')
+    today = date.today()
 
     if rent_date:
         request.session['rent_date'] = rent_date
@@ -281,6 +282,9 @@ def change_date(request, pk):
 
     days = None
     total_price = 0
+
+    rental_date_obj = None
+    return_date_obj = None
 
     if rent_date and return_date:
         try:
@@ -315,7 +319,7 @@ def change_date(request, pk):
         except ValueError:
             messages.error(request, "Invalid Dates")
 
-    context = {"car": car, 'rent_date': rent_date, 'return_date': return_date, 'days': days, "total_price": total_price}
+    context = {"car": car, 'rent_date': rent_date, 'return_date': return_date, 'days': days, "total_price": total_price, "today": today, "rent_date_obj": rental_date_obj}
     return render(request, "base/renting.html", context)
 
 
@@ -327,6 +331,7 @@ def confirm_rent(request, pk):
 
     rent_date = request.GET.get('rent_date') or request.session.get('rent_date')
     return_date = request.GET.get('return_date') or request.session.get('return_date')
+    
 
     days = None
     total_price = 0
@@ -711,21 +716,6 @@ def EditBalance(request):
 
         user_info.save()
 
-        # if card_number_change and card_type_change and balance_update:
-        #     messages.success(request, "Balance updated and shifted to new card with updated number and type")    
-
-        # elif card_number_change and balance_update:
-        #     messages.success(request, "Balance updated and shifted to new card with updated number")
-
-        # elif card_type_change and balance_update:
-        #     messages.success(request, "Balance updated and shifted to new card with updated type")
-
-        # elif card_number_change:
-        #     messages.success(request, "Balance shifted to new card number")
-        
-        # elif card_type_change:
-        #     messages.success(request, "Balance shifted to new card type")
-
         messages.success(request, "Balance/Card updated")
 
         return redirect("update_balance")
@@ -733,17 +723,44 @@ def EditBalance(request):
     context = {"user_info": user_info}
     return render(request, "base/user_page/pop_edit_balance.html", context)
 
+def DeleteAccount(request):
+
+    user = request.user
+
+    if request.method == "POST":
+
+        logout(request)
+        user.delete()
+        return redirect ("home")
+
+    context = {}
+
+    return render(request, 'base/user_page/view_profile_user.html', context)
+
+
 #--------------------------------------------------RETURNING USER----------------------------------------------------------------
 
 def returning(request):
 
     history = History.objects.get(user=request.user)
 
+
+    today = None
+    rent_date_obj = None
     recent_rent = None
+
     if history.new_rented:
         recent_rent = history.new_rented[-1]
+        
+        today = date.today()
 
-    context = {"recent_rent": recent_rent}
+        rent_date = recent_rent["rent_date"]
+        if isinstance(rent_date, str):
+            rent_date_obj = datetime.strptime(rent_date, '%Y-%m-%d').date()
+        else:
+            rent_date_obj = rent_date
+
+    context = {"recent_rent": recent_rent, "today": today, "rent_date": rent_date_obj}
 
     return render(request, "base/user_page/returning.html", context)
 
@@ -778,6 +795,7 @@ def confirm_return(request):
         messages.success(request, "Car returned successfully")
         return redirect("home")
 
+    
     
     context = {"recent_rent": recent_rent}
 
@@ -836,18 +854,38 @@ def early_return(request, balance, history):
         return_date_obj = datetime.strptime(return_date, '%Y-%m-%d').date()
     else:
         return_date_obj = return_date
+    
+    rent_date = cars_rented["rent_date"]
 
+    if isinstance(rent_date, str):
+        rent_date_obj = datetime.strptime(rent_date, '%Y-%m-%d').date()
+    else:
+        rent_date_obj = rent_date
+    
+    if rent_date_obj > today:
+        days = (return_date_obj - rent_date_obj).days
 
-    if return_date_obj > today:
+        extra_amount = days * price_per_day
+        balance -= int(extra_amount * 0.1)
+        balance += extra_amount
+        
+        cars_rented["return_date"] = today.strftime('%Y-%m-%d')
+        history.cars_rented[-1] = cars_rented 
+        history.save()        
+
+        messages.info(request, f"Order Cancelled.\nDeposit: {extra_amount - (extra_amount*0.1)} PKR into your balance. 10% of the total amount will be deducted")  
+
+    elif return_date_obj > today:
         days = (return_date_obj - today).days
 
         extra_amount = days * price_per_day
-        balance += extra_amount
+        balance -= (extra_amount * 0.1)
+        balance += extra_amount 
         
         cars_rented["return_date"] = today.strftime('%Y-%m-%d')
         history.cars_rented[-1] = cars_rented 
         history.save()
 
-        messages.info(request, f"Early Return.\nDeposit: {extra_amount} PKR into your balance.")   
+        messages.info(request, f"Early Return.\nDeposit: {extra_amount - (extra_amount*0.1)} PKR into your balance.\n10% of the total amount will be deducted")   
 
     return balance 
